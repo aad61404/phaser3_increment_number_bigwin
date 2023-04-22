@@ -1,6 +1,6 @@
 let timerEvent;
 let count = 0;
-let numberText = '4123456';
+let numberText = '4,123,456.12';
 let lastDigit = numberText.charAt(numberText.length - 1);
 let textA;
 let outputValue = '';
@@ -36,7 +36,7 @@ function onTimerTick() {
     }
     
     
-    if (lastDigit === 0) {
+    if (lastDigit === 0 || lastDigit === '.' || lastDigit === ',') {
         reset()
         return ;
     }
@@ -63,6 +63,12 @@ function reset() {
     if (numberText === '' || lastDigit === '') {
         timerEvent.destroy();
         return;
+    }
+
+    if (lastDigit === '.' || lastDigit === ',') {
+        outputValue = lastDigit + outputValue
+        outputText.setText(outputValue)
+        return ;
     }
 
     outputValue = '0' + outputValue
